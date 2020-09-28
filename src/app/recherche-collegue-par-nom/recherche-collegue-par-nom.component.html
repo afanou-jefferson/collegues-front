@@ -4,13 +4,14 @@
     </div>
     <div class="form-group mx-sm-3 mb-2">
         <label class="sr-only"> Nom collegue </label>
-        <input type="password" class="form-control" placeholder="nom du collegue">
+        <input class="form-control" placeholder="nom du collegue"  type="text" #nomSaisi>
     </div>
-    <button type="button" class="btn btn-primary mb-2" (click)="rechercherParMatricule()"> Rechercher </button>
+    <button type="button" class="btn btn-primary mb-2" (click)="rechercherParNom(nomSaisi.value)"> Rechercher </button>
 </form>
 
 <div [hidden]="estCache" class="border border-primary"> <!-- Par défaut, listeMatricule n'est pas valorisé à l'initialisation du component, elle ne l'est que quand on click sur le bouton en lancant la recherche-->
     <ul>
-        <li *ngFor="let mat of listeMatricules">{{mat}}</li> <!-- Pour chaque matricule dans listeMatricule:String[], on créer un li avec le matricule -->
+        <li *ngFor="let mat of listeMatricules">{{mat | json}}</li> <!-- Pour chaque matricule dans listeMatricule:String[], on créer un li avec le matricule -->
     </ul>
 </div>
+
