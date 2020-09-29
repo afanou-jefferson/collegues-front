@@ -23,7 +23,7 @@
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2",
-    "build": "ng build --prod --base-href https://afanou-jefferson.github.io/colleguesfront/"
+    "build": "ng build --prod --base-href https://afanou-jefferson.github.io/collegues-front/"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1001.2",
