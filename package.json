@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build": "ng build --prod --base-href https://afanou-jefferson.github.io/collegues-front/"
   },
   "private": true,
   "dependencies": {
@@ -22,8 +23,7 @@
     "bootstrap": "^4.5.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2",
-    "build": "ng build --prod --base-href https://afanou-jefferson.github.io/collegues-front/"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1001.2",
