@@ -16,7 +16,6 @@ export class Collegue {
         this.photoUrl = photoUrl;
     }
 
-
     toString(){
         return `Matricule= ${this.matricule}, Nom= ${this.nom}, Prenom= ${this.prenoms}, Email= ${this.email}, DdN= ${this.dateDeNaissance.toDateString()}, photoUrl= ${this.photoUrl}`;
     }

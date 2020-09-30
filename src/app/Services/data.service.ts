@@ -1,10 +1,23 @@
+import { environment } from './../../environments/environment';
+import { Collegue } from './../models/Collegue';
 import { Injectable } from '@angular/core';
-import { Collegue } from '../models/Collegue';
-import { mockCollegue } from '../mock/collegues.mock';
-import { matricules } from '../mock/matricules.mock';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import {environment} from '../../environments/environment';
+import { Observable, Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+
+// tap (avant s'appelait do)
+// peek en Stream Java
+
+
+interface CollegueBack {
+  id: number;
+  matricule: string;
+  nom: string;
+  prenom: string;
+  email: string;
+  dateDeNaissance: string;
+  photoUrl: string;
+}
 
 
 @Injectable({
@@ -12,16 +25,25 @@ import {environment} from '../../environments/environment';
 })
 export class DataService {
 
-  apiUrl:String = environment.apiUrl;
+  private subCollegueSelectionne = new Subject<Collegue>();
 
-  constructor(private clientHttp:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  rechercherParNom(nom:string): Observable<String[]> {
-      return this.clientHttp.get<String[]>(`${this.apiUrl}?nom=${nom}`);
+  rechercherParNom(nom: string): Observable<string[]> {
+    return this.http.get<string[]>(`${environment.apiUrl}/collegues?nom=${nom}`);
   }
 
-  recupererCollegueCourant(): Collegue {
-      return mockCollegue;
+  recupererCollegueCourant(): Observable<Collegue> {
+    return this.subCollegueSelectionne.asObservable();
   }
-  
+
+  selectionnerMatricule(matricule: string): Observable<Collegue> {
+    return this.http.get<CollegueBack>(`${environment.apiUrl}/collegues/${matricule}`)
+      .pipe(
+        map(colBack => new Collegue(colBack.matricule, colBack.nom, colBack.prenom, colBack.email, // transforme le collegue(Json) recu en objet Collegue JS geré par notre code
+          new Date(colBack.dateDeNaissance), colBack.photoUrl)),
+        tap(collegue => this.subCollegueSelectionne.next(collegue))// Permet de publier le collegue trouvé, il donne accès à la donnée sans modifier le flux
+        //Tap == Do dans les anciennes version de RX
+      );
+  }
 }

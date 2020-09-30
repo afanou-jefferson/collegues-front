@@ -1,6 +1,7 @@
+import { DataService } from './../services/data.service';
 import { Component, OnInit } from '@angular/core';
-import { matricules } from '../mock/matricules.mock';
-import { DataService } from '../Services/data.service';
+
+
 
 @Component({
   selector: 'app-recherche-collegue-par-nom',
@@ -9,35 +10,37 @@ import { DataService } from '../Services/data.service';
 })
 export class RechercheCollegueParNomComponent implements OnInit {
 
-  listeMatricules: String[];
-  estCache: boolean = true;
-  erreurTechnique: boolean = false;
-  nomIntrouvable: boolean;
+  matricules: string[];
 
+  matriculeNonTrouve = false;
+  erreurTechnique = false;
 
-  constructor(private service: DataService) {
-  }
+  constructor(private dataSrv: DataService) { }
 
   ngOnInit(): void {
   }
 
-  rechercherParNom(nomSaisi: string): void {
+  rechercherCol(nomSaisi: string): void {
+    this.matricules = null; // effacer les matricules affichés
+    this.dataSrv.rechercherParNom(nomSaisi)
+      .subscribe(matriculesBack => {
+        this.erreurTechnique = false;
+        if (matriculesBack.length > 0) {
+          this.matriculeNonTrouve = false;
+          this.matricules = matriculesBack;
+        } else {
+          this.matriculeNonTrouve = true;
+        }
 
-    this.service.rechercherParNom(nomSaisi)
-      .subscribe(
-        listeFromRequete => { // Gestion du résultat si succès requête
-          this.erreurTechnique = false;
-          if (listeFromRequete.length > 0) {
-            this.nomIntrouvable = false;
-            this.listeMatricules = listeFromRequete;
-          } else {
-            this.nomIntrouvable = true;
-          }
-        },
-        error => { this.erreurTechnique = true }, // Gestion si Erreur
-        () => { } // Gestion si Signale de fin de flux
-      )
-    this.estCache = false;
+      },
+        error => this.erreurTechnique = true);
   }
+
+  selectionner(matricule: string): void {
+    this.dataSrv.selectionnerMatricule(matricule)
+      .subscribe(() => { },
+        error => this.erreurTechnique = true);
+  }
+
 
 }
