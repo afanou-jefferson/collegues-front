@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { IFormCreerCollegue } from '../creer-collegue/i-form-creer-collegue';
 
 // tap (avant s'appelait do)
 // peek en Stream Java
@@ -45,5 +46,14 @@ export class DataService {
         tap(collegue => this.subCollegueSelectionne.next(collegue))// Permet de publier le collegue trouvé, il donne accès à la donnée sans modifier le flux
         //Tap == Do dans les anciennes version de RX
       );
+  }
+
+  creerCollegue(collegueForm: IFormCreerCollegue): Observable<Collegue> {
+    return this.http.post<CollegueBack>(
+      `${environment.apiUrl}/collegues`, // 1er argument = url
+      collegueForm) // 2eme argument l'objet à post au format geré par le back ( ici on a fait une interface qui match)
+      .pipe(
+        map(colBack => new Collegue(colBack.matricule, colBack.nom, colBack.prenom, colBack.email,
+          new Date(colBack.dateDeNaissance), colBack.photoUrl)));
   }
 }
