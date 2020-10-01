@@ -1,4 +1,4 @@
-import { DataService } from './../services/data.service';
+import { DataService } from '../services/data.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Collegue } from '../models/Collegue';
 
