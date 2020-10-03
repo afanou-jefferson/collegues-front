@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { IFormCreerCollegue } from '../creer-collegue/i-form-creer-collegue';
+import { IFormCreerCollegue } from './../composants/creer-collegue/i-form-creer-collegue';
 
 // tap (avant s'appelait do)
 // peek en Stream Java

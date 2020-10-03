@@ -1,6 +1,6 @@
-import { DataService } from '../services/data.service';
+import { DataService } from './../../services/data.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Collegue } from '../models/Collegue';
+import { Collegue } from './../../models/Collegue';
 
 @Component({
   selector: 'app-collegue',
