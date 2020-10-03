@@ -1,1 +1,29 @@
-<p>page-galerie works!</p>
+<div class="container">
+    <div *ngFor="let collegue of listeCollegues; let i = index">
+        <div *ngIf="i % 3 == 0" class="row">
+            <div class="col-4 text-center">
+                <a routerLink="/galerie/{{collegue.matricule}}">
+                    <img src="{{collegue.photoUrl}}" class="img-thumbnail">
+                </a>
+            </div>
+            <div class="col-4 text-center" *ngIf="i + 1 < listeCollegues.length">
+                <a routerLink="/galerie/{{listeCollegues[i + 1].matricule}}">
+                    <img src="{{listeCollegues[i+1].photoUrl}}" class="img-thumbnail">
+                </a>
+            </div>
+            <div class="col-4 text-center" *ngIf="i + 2 < listeCollegues.length">
+                <a routerLink="/galerie/{{listeCollegues[i + 2].matricule}}">
+                    <img src="{{listeCollegues[i+2].photoUrl}}" class="img-thumbnail">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="aucunCollegueTrouve" class="alert alert-warning" role="alert">
+    Aucun collègue trouvé
+</div>
+<div *ngIf="erreurTechnique" class="alert alert-danger" role="alert">
+    Erreur Technique
+</div>

@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PageAcceuilComponent } from './pages/page-acceuil/page-acceuil.component';
 import { PageGalerieComponent } from './pages/page-galerie/page-galerie.component';
 import { PageAProposComponent } from './pages/page-apropos/page-apropos.component';
+import { PageFicheCollegueComponent } from './pages/page-fiche-collegue/page-fiche-collegue.component';
 
 
 
@@ -27,7 +28,8 @@ import { PageAProposComponent } from './pages/page-apropos/page-apropos.componen
     MenuComponent,
     PageAcceuilComponent,
     PageGalerieComponent,
-    PageAProposComponent
+    PageAProposComponent,
+    PageFicheCollegueComponent
   ],
   imports: [
     BrowserModule,

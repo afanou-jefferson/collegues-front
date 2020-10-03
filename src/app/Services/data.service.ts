@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { IFormCreerCollegue } from './../composants/creer-collegue/i-form-creer-collegue';
+import { ICollegueGalerie } from './../pages/page-galerie/icollegue-galerie';
+
 
 // tap (avant s'appelait do)
 // peek en Stream Java
@@ -55,5 +57,9 @@ export class DataService {
       .pipe(
         map(colBack => new Collegue(colBack.matricule, colBack.nom, colBack.prenom, colBack.email,
           new Date(colBack.dateDeNaissance), colBack.photoUrl)));
+  }
+
+  getPhotosCollegues(): Observable<ICollegueGalerie[]> {
+    return this.http.get<ICollegueGalerie[]>(`${environment.apiUrl}/collegues/photos`);
   }
 }
